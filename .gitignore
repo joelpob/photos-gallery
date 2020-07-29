@@ -1,0 +1,14 @@
+img/
+thumbnail
+.mypy_cache
+*.csv
+*.log
+*.sh
+__pycache__
+trash/
+models/
+.vscode/
+geonames_data/
+tmp/
+hidden/
+env/
