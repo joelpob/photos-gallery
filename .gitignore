@@ -3,7 +3,6 @@ thumbnail
 .mypy_cache
 *.csv
 *.log
-*.sh
 __pycache__
 trash/
 models/
