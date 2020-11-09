@@ -89,6 +89,7 @@ def get_searchtokens(places_classifier: PlacesClassifier, im: Image) -> str:
 
 def rotate_image(im: Image) -> Image:
     try:
+        orientation = -1
         for orientation in ExifTags.TAGS.keys():
             if ExifTags.TAGS[orientation] == 'Orientation': break
         exif = dict(im._getexif().items())
@@ -197,7 +198,7 @@ def process(source_directory: str,
 
     for f in unprocessed_files:
         try:
-            latlong_tokens = get_gps_search_tokens(f, resolver)
+            latlong_tokens = get_gps_search_tokens(source_directory + '/' + f, resolver)
             im = Image.open(source_directory + '/' + f)
 
             created_date = get_created_date(im)
@@ -250,7 +251,6 @@ def main(source_dir,
          search_dictionary_file,
          regenerate_metadata,
          regenerate_search):
-    coloredlogs.install(level='INFO')
 
     if regenerate_metadata:
         regenerate_metadata_csv(source_dir, models_dir, metadata_file)
@@ -259,6 +259,6 @@ def main(source_dir,
     else:
         process(source_dir, thumbnail_dir, models_dir, metadata_file)
 
-
 if __name__ == '__main__':
+    coloredlogs.install(level='INFO')
     main()
